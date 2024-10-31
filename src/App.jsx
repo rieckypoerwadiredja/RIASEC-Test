@@ -40,13 +40,26 @@ function App() {
   const [points, setPoints] = useState({});
 
   const handleSubmit = () => {
-    // Menghitung jumlah poin berdasarkan jawaban yang 'Yes'
-    const calculatedPoints = questions.reduce((acc, question) => {
-      if (question.answer === true) {
-        acc[question.type] = (acc[question.type] || 0) + 1;
-      }
+    // Menghitung poin setiap type dan inisialisasi semua dengan 0
+    const allAnswered = questions.every((question) => question.answer !== null);
+
+    if (!allAnswered) {
+      alert("Silakan jawab semua pertanyaan sebelum melanjutkan.");
+      return;
+    }
+
+    const initialPoints = questions.reduce((acc, question) => {
+      acc[question.type] = 0;
       return acc;
     }, {});
+
+    // Tambahkan poin untuk jawaban yang Yes (true)
+    const calculatedPoints = questions.reduce((acc, question) => {
+      if (question.answer === true) {
+        acc[question.type] += 1;
+      }
+      return acc;
+    }, initialPoints);
 
     setPoints(calculatedPoints);
     setIsSubmitted(true);
