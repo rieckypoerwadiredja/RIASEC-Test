@@ -2,24 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function ResultPage({ points }) {
-  // Mengonversi objek points menjadi array, mengurutkan berdasarkan nilai, dan mengambil tiga teratas
-  const sortedPoints = Object.entries(points).sort(([, a], [, b]) => b - a); // Mengurutkan dari yang tertinggi
+  // Mengurutkan point dari tertinggi
+  const sortedPoints = Object.entries(points).sort(([, a], [, b]) => b - a);
 
-  const topThree = sortedPoints.slice(0, 3); // Tiga teratas
-  const remaining = sortedPoints.slice(3); // Sisanya
+  const topThree = sortedPoints.slice(0, 3); // mengambil nilai top Tiga teratas
+  const remaining = sortedPoints.slice(3); // Sisanya dampilkan di layer bawah
 
   return (
     <div>
-      <h2>Hasil Top 3</h2>
+      <h2 class="text-xl md:text-2xl font-semibold text-gray-900 text-center">
+        Your Dominant Result
+      </h2>
       {topThree.length > 0 ? (
         topThree.map(([type, point]) => (
-          <p key={type}>
+          <div>
             {type}: {point} poin
-          </p>
+          </div>
         ))
       ) : (
-        <p>Tidak ada hasil yang tersedia.</p>
+        <p className="text-red-500">No Result. Something wrong</p>
       )}
+
+      <div></div>
 
       <h2>Hasil Lainnya</h2>
       {remaining.length > 0 ? (
@@ -29,7 +33,7 @@ function ResultPage({ points }) {
           </p>
         ))
       ) : (
-        <p>Tidak ada hasil lainnya.</p>
+        <p className="text-red-500">No Result. Something wrong</p>
       )}
     </div>
   );
