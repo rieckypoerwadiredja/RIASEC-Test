@@ -112,3 +112,12 @@ const conventional = {
     "Technology",
   ],
 };
+
+export {
+  realistic,
+  investigative,
+  artistic,
+  social,
+  enterprising,
+  conventional,
+};
