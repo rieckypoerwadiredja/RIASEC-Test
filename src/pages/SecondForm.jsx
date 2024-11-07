@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 function SecondForm({ noFormulir, email }) {
+  const [noFormulir, setNoFormulir] = useState("");
+  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
   const [jurusan, setJurusan] = useState("cp");
@@ -41,7 +43,17 @@ function SecondForm({ noFormulir, email }) {
 
     // Lanjutkan jika tidak ada error
     if (Object.keys(newErrors).length === 0) {
-      console.log("Formulir valid. Mulai test...");
+      // Simpan data ke local storage
+      const formData = {
+        noFormulir,
+        email,
+        name,
+        dob,
+        jurusan,
+      };
+      localStorage.setItem("formData", JSON.stringify(formData));
+
+      console.log("Data telah disimpan ke local storage. Mulai test...");
       navigate("/");
     }
   };
@@ -67,6 +79,7 @@ function SecondForm({ noFormulir, email }) {
               placeholder="Enter Form Number"
               value={noFormulir}
               disabled
+              onChange={(e) => setNoFormulir(e.target.value)}
             />
             {errors.noFormulir && (
               <p className="text-red-500 text-xs italic">{errors.noFormulir}</p>
@@ -87,6 +100,7 @@ function SecondForm({ noFormulir, email }) {
               placeholder="Enter Your Email"
               value={email}
               disabled
+              onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && (
               <p className="text-red-500 text-xs italic">{errors.email}</p>

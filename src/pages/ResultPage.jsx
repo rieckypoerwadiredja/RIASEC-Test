@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import profile_image from "../assets/images/woman.jpg";
 import {
@@ -12,6 +12,16 @@ import {
 import { Link } from "react-router-dom";
 
 function ResultPage({ points }) {
+  const [formData, setFormData] = useState(null);
+
+  useEffect(() => {
+    // Mengambil data dari local storage
+    const savedData = localStorage.getItem("formData");
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    }
+  }, []);
+
   const sortedPoints = Object.entries(points).sort(([, a], [, b]) => b - a);
   const topThree = sortedPoints.slice(0, 3);
   const rest = sortedPoints.slice(3);
@@ -34,8 +44,28 @@ function ResultPage({ points }) {
             alt="Profile"
           />
           <div className="font-semibold text-gray-800 justify-center flex flex-col">
-            <p>Marcella (21 years)</p>
-            <p>Creativepreneurship</p>
+            {formData ? (
+              <>
+                <p>
+                  {formData.name}{" "}
+                  {
+                    <p>
+                      Date of Birth:{" "}
+                      {new Date(formData.dob).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                  }
+                </p>
+                <p>jurusan:{formData.jurusan}</p>
+                <p>No Formulir: {formData.noFormulir}</p>
+                <p>Email: {formData.email}</p>
+              </>
+            ) : (
+              <p>Data tidak tersedia</p>
+            )}
           </div>
         </div>
         <div className="h-[2px] w-full border-t-2 border-dashed border-black"></div>
@@ -95,9 +125,6 @@ function ResultPage({ points }) {
                 <div className="text-gray-800">
                   <p className="font-bold text-lg">{type}</p>
                   <p>{description}</p>
-                  <Link className="underline" to={`/learn-more/${type}`}>
-                    Learn More
-                  </Link>
                 </div>
               </div>
             </div>

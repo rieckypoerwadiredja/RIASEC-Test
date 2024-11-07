@@ -1,26 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionPage from "./QuestionPage";
 import ResultPage from "./ResultPage";
 import questionsData from "../data/questionsData";
 import { useNavigate } from "react-router";
 
-function Application({ formData }) {
-  const [questions, setQuestions] = useState(questionsData); // todo: List Data
-
-  const [isSubmitted, setIsSubmitted] = useState(false); // todo: Submit lalu tampilkan resultnya
-  const [points, setPoints] = useState({}); // todo: menghitung jml point tiap jenisnya
-
-  const navigate = useNavigate(); // Initialize the navigate function
+function Application() {
+  const [questions, setQuestions] = useState(questionsData); // List Data
+  const [isSubmitted, setIsSubmitted] = useState(false); // Submit lalu tampilkan resultnya
+  const [points, setPoints] = useState({}); // Menghitung jumlah point tiap jenisnya
+  const [formData, setFormData] = useState(null); // Menyimpan data form jika ada di local storage
+  const [startTest, setStartTest] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if noFormulir or email is empty
-    if (!formData.noFormulir || !formData.email) {
-      navigate("/register"); // Redirect to register page
+    // Cek apakah data form ada di local storage
+    const storedFormData = localStorage.getItem("formData");
+    if (storedFormData) {
+      setFormData(JSON.parse(storedFormData)); // Set data form jika ada
+    } else {
+      navigate("/register");
     }
-  }, [formData, navigate]); // Trigger when formData changes
+  }, []);
 
   const handleSubmit = () => {
-    // todo: Valdasi semua pertanyaan sudah dijawab (tidak ada nilai null)
+    // Validasi semua pertanyaan sudah dijawab (tidak ada nilai null)
     const allAnswered = questions.every((question) => question.answer !== null);
 
     if (!allAnswered) {
@@ -28,13 +31,13 @@ function Application({ formData }) {
       return;
     }
 
-    // todo: Semua point awal di set 0
+    // Set semua point awal menjadi 0
     const initialPoints = questions.reduce((acc, question) => {
       acc[question.type] = 0;
       return acc;
     }, {});
 
-    // 1 true = 1 pont, 1 false = 0 point
+    // 1 true = 1 point, 1 false = 0 point
     const calculatedPoints = questions.reduce((acc, question) => {
       if (question.answer === true) {
         acc[question.type] += 1;
@@ -48,6 +51,45 @@ function Application({ formData }) {
 
   return (
     <div className="px-10 pb-10 pt-5">
+      {formData && !isSubmitted && (
+        <div className="mb-5 p-4 border rounded-md bg-gray-100">
+          <h2 className="text-lg font-semibold">Form Data</h2>
+          <p>No Formulir: {formData.noFormulir}</p>
+          <p>Email: {formData.email}</p>
+          <p>Name: {formData.name}</p>
+          <p>Date of Birth: {formData.dob}</p>
+          <p>Jurusan: {formData.jurusan}</p>
+          {!startTest && (
+            <>
+              <p className="mt-3 text-sm text-red-500">
+                Jika ini bukan data Anda, silakan klik tombol di bawah untuk
+                menghapus data.
+              </p>
+              <div>
+                <button
+                  onClick={() => {
+                    setStartTest(true);
+                  }}
+                  className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+                >
+                  Accept and Start Test
+                </button>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem("formData"); // Hapus data dari local storage
+                    setFormData(null); // Update state agar tampilan diperbarui
+                    navigate("/register");
+                  }}
+                  className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                >
+                  Delete
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
       {isSubmitted ? (
         <ResultPage points={points} />
       ) : (
