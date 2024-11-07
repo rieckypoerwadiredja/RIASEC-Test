@@ -9,6 +9,7 @@ import {
   enterprising,
   conventional,
 } from "../data/riasecData";
+import { Link } from "react-router-dom";
 
 function ResultPage({ points }) {
   const sortedPoints = Object.entries(points).sort(([, a], [, b]) => b - a);
@@ -21,9 +22,9 @@ function ResultPage({ points }) {
 
   return (
     <div>
-      <h2 className="text-2xl md:text-3xl mb-8 font-bold text-gray-900 text-center">
+      <h1 className="text-2xl md:text-3xl mb-8 font-bold text-gray-900 text-center">
         Test Result
-      </h2>
+      </h1>
 
       <div className="border-black border-2 rounded-3xl overflow-hidden">
         <div className="flex gap-5 p-5">
@@ -51,20 +52,34 @@ function ResultPage({ points }) {
         topThree.map(([type, point]) => {
           const percentage = Math.round((point / totalPoints) * 100);
           let description = "";
+          let majors = [];
+          let relatedPathways = [];
 
           // Menentukan deskripsi berdasarkan tipe
           if (type === "Realistic") {
             description = realistic.description;
+            majors = realistic.majors;
+            relatedPathways = realistic.relatedPathways;
           } else if (type === "Investigative") {
             description = investigative.description;
+            majors = investigative.majors;
+            relatedPathways = investigative.relatedPathways;
           } else if (type === "Artistic") {
             description = artistic.description;
+            majors = artistic.majors;
+            relatedPathways = artistic.relatedPathways;
           } else if (type === "Social") {
             description = social.description;
+            majors = social.majors;
+            relatedPathways = social.relatedPathways;
           } else if (type === "Enterprising") {
             description = enterprising.description;
+            majors = enterprising.majors;
+            relatedPathways = enterprising.relatedPathways;
           } else if (type === "Conventional") {
             description = conventional.description;
+            majors = conventional.majors;
+            relatedPathways = conventional.relatedPathways;
           }
 
           return (
@@ -80,6 +95,9 @@ function ResultPage({ points }) {
                 <div className="text-gray-800">
                   <p className="font-bold text-lg">{type}</p>
                   <p>{description}</p>
+                  <Link className="underline" to={`/learn-more/${type}`}>
+                    Learn More
+                  </Link>
                 </div>
               </div>
             </div>

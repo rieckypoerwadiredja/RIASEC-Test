@@ -1,0 +1,31 @@
+deksripsi
+tdk ada jawaban benar atau salah, silahkan pilih sesuai minat anda
+
+
+- Jarak dipersemput dibagi 2kolom masing2 10
+- tombol submit hanya di akhir saja
+
+diawal mshkin no formular + email
+trs cek udh pernah submit blm sebelumnya, klo udh msk ke result page langsung, klo engga langsung ke tess
+
+form awal sblm tess
+No Formulir
+email pribadi
+nama (Uppercase)
+tgl lahir
+jurusan (cp, dbi)
+
+- cb pake Waktu untuk pengisian tesnya (15mnt)
+
+foto profile diresult diganti --> logo binus
+
+-  Hasil result tamabah 1 kotal utk upload link video rekaman 
+ksh catatan -> link google drive hrs sdh public
+
+- simpen ke database result + link video record memperkenalkan diri (tdk lbh dr 5 mnt) 
+
+- Daftar pertanyaan utk video ditampilkan juga
+
+Pak Doni Morika: 081320156560
+
+
