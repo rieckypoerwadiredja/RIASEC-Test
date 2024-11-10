@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import mechanic_img from "../assets/images/mechanic.jpg";
 
-function QuestionPage({ questions, setQuestions }) {
+function QuestionPage({ questions, setQuestions, handleSubmit }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const questionsPerSlide = 10;
+  const unansweredQuestionRef = useRef(null);
 
   // Mengelompokkan soal per slide
   const slides = [];
@@ -20,106 +20,121 @@ function QuestionPage({ questions, setQuestions }) {
     );
   };
 
-  const handleNextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const goToNextSlide = () => {
+    // Mengambil nomor pertanyaan yang belum dijawab dari seluruh soal
+    const unansweredQuestions = slides[currentSlide]
+      .map((question, index) =>
+        question.answer === null
+          ? index + 1 + currentSlide * questionsPerSlide
+          : null
+      )
+      .filter((index) => index !== null); // Ambil nomor pertanyaan yang belum dijawab
+
+    if (unansweredQuestions.length > 0) {
+      alert(
+        `Ada pertanyaan yang belum dijawab! Pertanyaan nomor: ${unansweredQuestions.join(
+          ", "
+        )}`
+      );
+      unansweredQuestionRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setCurrentSlide((prevSlide) =>
+        Math.min(prevSlide + 1, slides.length - 1)
+      );
+    }
   };
 
-  const handlePreviousSlide = () => {
-    setCurrentSlide(currentSlide - 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const goToPreviousSlide = () => {
+    setCurrentSlide((prevSlide) => Math.max(prevSlide - 1, 0));
   };
+
+  // Scroll to top when currentSlide changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentSlide]);
 
   return (
-    <div className="relative flex flex-col gap-y-5">
-      <div>
-        <h2 className="text-xl md:text-2xl font-semibold text-gray-900 text-center">
-          Career Pathway Finder
-        </h2>
-        <p className="mt-1 text-sm/6 text-gray-600 text-center">
-          Discover your ideal career fit through personalized interests and
-          skills.
-        </p>
-      </div>
-
-      <form className="flex flex-col gap-y-5">
+    <div className="flex flex-col items-center">
+      <div className="space-y-4">
         {slides[currentSlide].map((question, idx) => (
-          <div className="border-dashed border-black border-2 p-1 rounded-3xl w-full md:w-[450px] mx-auto shadow-md">
-            <fieldset key={question.id} className="w-full my-10">
-              <legend className="text-lg font-semibold text-gray-900 text-center">
-                {currentSlide * questionsPerSlide + idx + 1}.{" "}
-                {question.question}
-              </legend>
-
-              <div className="mt-3 flex items-center justify-center gap-x-10 w-full">
-                <div
-                  className="flex items-center gap-x-3 h-full bg-green-200 hover:bg-green-300 py-2 px-5 cursor-pointer rounded-md shadow-md"
-                  onClick={() => handleAnswerChange(question.id, true)}
-                >
-                  <input
-                    type="radio"
-                    id={`yes-${question.id}`}
-                    name={`question-${question.id}`}
-                    value="yes"
-                    onChange={() => handleAnswerChange(question.id, true)}
-                    checked={question.answer === true}
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
-                  />
-                  <label
-                    htmlFor={`yes-${question.id}`}
-                    className="block text-sm/6 font-medium text-gray-900 cursor-pointer"
-                  >
-                    Yes
-                  </label>
-                </div>
-                <div
-                  className="flex items-center gap-x-3 h-full bg-red-200 hover:bg-red-300 py-2 px-5 cursor-pointer rounded-md shadow-md"
-                  onClick={() => handleAnswerChange(question.id, false)}
-                >
-                  <input
-                    type="radio"
-                    id={`no-${question.id}`}
-                    name={`question-${question.id}`}
-                    value="no"
-                    onChange={() => handleAnswerChange(question.id, false)}
-                    checked={question.answer === false}
-                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
-                  />
-                  <label
-                    htmlFor={`no-${question.id}`}
-                    className="block text-sm/6 font-medium text-gray-900 cursor-pointer"
-                  >
-                    No
-                  </label>
-                </div>
-              </div>
-            </fieldset>
+          <div
+            key={question.id}
+            ref={question.answer === null ? unansweredQuestionRef : null}
+            className={`border-dashed border-black border-2 p-1 rounded-3xl w-full md:w-[450px] mx-auto shadow-md ${
+              question.answer !== null ? "bg-blue-100" : "bg-pink-200"
+            }`}
+          >
+            <p>
+              <strong>
+                Soal{" "}
+                {slides[currentSlide].indexOf(question) +
+                  1 +
+                  currentSlide * questionsPerSlide}
+                :{" "}
+              </strong>
+              {question.question}
+            </p>
+            <div className="flex gap-2 mt-2">
+              <button
+                onClick={() => handleAnswerChange(question.id, true)}
+                className={`px-3 py-1 rounded-md ${
+                  question.answer === true ? "bg-blue-300" : "bg-gray-200"
+                }`}
+              >
+                True
+              </button>
+              <button
+                onClick={() => handleAnswerChange(question.id, false)}
+                className={`px-3 py-1 rounded-md ${
+                  question.answer === false ? "bg-blue-300" : "bg-gray-200"
+                }`}
+              >
+                False
+              </button>
+            </div>
           </div>
         ))}
-      </form>
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-center gap-4 mt-6">
-        <button
-          onClick={handlePreviousSlide}
-          disabled={currentSlide === 0}
-          className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNextSlide}
-          disabled={currentSlide === slides.length - 1}
-          className="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
       </div>
 
-      {/* Slide Indicator */}
-      <p className="text-center mt-4">
-        Slide {currentSlide + 1} of {slides.length}
-      </p>
+      <div className="mt-4 flex flex-col items-center gap-2">
+        <div className="flex gap-2">
+          <button
+            onClick={goToPreviousSlide}
+            disabled={currentSlide === 0}
+            className={`px-4 py-2 rounded-md ${
+              currentSlide === 0
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gray-300 text-black hover:bg-gray-400"
+            }`}
+          >
+            Previous
+          </button>
+
+          <button
+            onClick={goToNextSlide}
+            disabled={currentSlide === slides.length - 1}
+            className={`px-4 py-2 rounded-md ${
+              currentSlide === slides.length - 1
+                ? "bg-blue-200 text-gray-500 cursor-not-allowed"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+            }`}
+          >
+            Next
+          </button>
+        </div>
+
+        {/* Keterangan Slide */}
+        <p className="text-gray-600">
+          Page {currentSlide + 1} of {slides.length}
+        </p>
+
+        <button
+          onClick={handleSubmit}
+          className="rounded-md bg-blue-200 w-full md:max-w-[50%] mx-auto flex justify-center px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

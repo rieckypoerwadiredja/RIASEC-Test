@@ -16,9 +16,15 @@ function Application() {
     // Cek apakah data form ada di local storage
     const storedFormData = localStorage.getItem("formData");
     if (storedFormData) {
-      setFormData(JSON.parse(storedFormData)); // Set data form jika ada
+      const formData = JSON.parse(storedFormData);
+      if (formData.result) {
+        setIsSubmitted(true);
+      }
+      setFormData(formData); // Set data form jika ada
+
+      // Jika formData sudah ada dan terdapat topThree, set isSubmitted menjadi true
     } else {
-      navigate("/register");
+      navigate("/register"); // Arahkan ke halaman register jika formData tidak ada
     }
   }, []);
 
@@ -45,6 +51,22 @@ function Application() {
       return acc;
     }, initialPoints);
 
+    // Membuat objek hasil dengan semua data poin
+    const result = Object.entries(calculatedPoints).map(([type, points]) => ({
+      type,
+      points,
+    }));
+
+    // Mendapatkan data formulir yang sudah ada di localStorage
+    const formData = JSON.parse(localStorage.getItem("formData")) || {};
+
+    // Menambahkan hasil ke dalam formData
+    formData.result = result;
+
+    // Simpan objek formData yang sudah diperbarui ke localStorage
+    localStorage.setItem("formData", JSON.stringify(formData));
+
+    // Simpan points dan set isSubmitted
     setPoints(calculatedPoints);
     setIsSubmitted(true);
   };
@@ -68,7 +90,12 @@ function Application() {
               <div>
                 <button
                   onClick={() => {
-                    setStartTest(true);
+                    const isConfirmed = window.confirm(
+                      "Data tidak akan bisa diubah kembali setelah test dimulai. Apakah Anda sudah yakin dengan data yang Anda masukkan?"
+                    );
+                    if (isConfirmed) {
+                      setStartTest(true);
+                    }
                   }}
                   className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                 >
@@ -90,18 +117,13 @@ function Application() {
         </div>
       )}
 
-      {isSubmitted ? (
-        <ResultPage points={points} />
-      ) : (
-        <>
-          <QuestionPage questions={questions} setQuestions={setQuestions} />
-          <button
-            onClick={handleSubmit}
-            className="rounded-md bg-blue-200 w-full md:max-w-[50%] mx-auto flex justify-center px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Let's Start
-          </button>
-        </>
+      {isSubmitted && <ResultPage points={points} />}
+      {startTest && !isSubmitted && (
+        <QuestionPage
+          questions={questions}
+          setQuestions={setQuestions}
+          handleSubmit={handleSubmit}
+        />
       )}
     </div>
   );
