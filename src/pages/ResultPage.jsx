@@ -68,6 +68,40 @@ function ResultPage() {
   const rest = sortedResults.slice(3); // Sisanya
   const totalPoints = results.reduce((acc, { points }) => acc + points, 0);
 
+  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
+  const handleOnSubmitTest = async (e) => {
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbz_Cv6PVb9HGuXRPozdGNDOkLhtHVpLfjBNZi5iUPZVQSOfg74EqvQtKMeigUju0hcW/exec";
+    const form = document.forms["career-pathway-finder"];
+
+    // Cek data formData untuk field yang kosong
+    if (
+      !formData.name ||
+      !formData.dob ||
+      !formData.jurusan ||
+      !formData.noFormulir ||
+      !formData.email ||
+      !formData.videoLink
+    ) {
+      alert("Lengkapi semua data sebelum submit.");
+      return;
+    }
+
+    e.preventDefault();
+
+    try {
+      setIsLoadingSubmit(true);
+      await fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(form),
+      });
+      alert("Submit Berhasil!.");
+      isLoadingSubmit(false);
+    } catch (error) {
+      console.error("Error!", error.message);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-2xl md:text-3xl mb-8 font-bold text-gray-900 text-center">
@@ -86,10 +120,11 @@ function ResultPage() {
                 alt="Profile"
               />
               <div className="font-semibold text-gray-800 justify-center flex flex-col w-full max-w-[400px]">
-                <form className="space-y-4 w-full">
+                <form className="space-y-4 w-full" name="career-pathway-finder">
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Name</span>
                     <input
+                      name="nama"
                       type="text"
                       value={formData?.name || "[User's Name]"}
                       readOnly
@@ -99,6 +134,7 @@ function ResultPage() {
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Date of Birth</span>
                     <input
+                      name="tgl_lahir"
                       type="text"
                       value={formData?.dob || "[User's Date of Birth]"}
                       readOnly
@@ -108,6 +144,7 @@ function ResultPage() {
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Jurusan</span>
                     <input
+                      name="jurusan"
                       type="text"
                       value={formData?.jurusan || "[User's Jurusan]"}
                       readOnly
@@ -117,6 +154,7 @@ function ResultPage() {
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">No Formulir</span>
                     <input
+                      name="no_formulir"
                       type="text"
                       value={formData?.noFormulir || "[User's Formulir Number]"}
                       readOnly
@@ -126,6 +164,7 @@ function ResultPage() {
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Email</span>
                     <input
+                      name="email"
                       type="text"
                       value={formData?.email || "[User's Email]"}
                       readOnly
@@ -135,19 +174,32 @@ function ResultPage() {
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Video Link</span>
                     <input
+                      name="link_video"
                       type="text"
                       value={formData?.videoLink || "[Video Link]"}
                       readOnly
                       className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
                     />
                   </label>
-
+                  {formData.result.map((result) => (
+                    <label className="flex items-center justify-center">
+                      <input
+                        name={result.type}
+                        type="hidden"
+                        value={result.points || "[Result]"}
+                        readOnly
+                        className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                      />
+                    </label>
+                  ))}
                   {/* Tombol Submit Hasil Ujian */}
                   <button
-                    type="button"
+                    type="submit"
+                    disabled={isLoadingSubmit}
+                    onClick={(e) => handleOnSubmitTest(e)}
                     className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
                   >
-                    Submit Hasil Ujian
+                    {isLoadingSubmit ? "Loading..." : "Submit Hasil Ujian"}
                   </button>
                 </form>
               </div>
