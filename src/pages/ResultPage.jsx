@@ -60,7 +60,7 @@ function VideoLinkForm({ onSubmit }) {
 function ResultPage() {
   // Ambil data 'formData' dari localStorage
   const formData = JSON.parse(localStorage.getItem("formData"));
-  const hasVideoLink = formData?.videoLink; // Cek apakah videoLink sudah ada di formData
+  // const hasVideoLink = formData?.videoLink; // Cek apakah videoLink sudah ada di formData
 
   const results = formData?.result || []; // Jika results tidak ada, beri array kosong
   const sortedResults = results.sort((a, b) => b.points - a.points);
@@ -80,8 +80,8 @@ function ResultPage() {
       !formData.dob ||
       !formData.jurusan ||
       !formData.noFormulir ||
-      !formData.email ||
-      !formData.videoLink
+      !formData.email
+      // !formData.videoLink
     ) {
       alert("Lengkapi semua data sebelum submit.");
       return;
@@ -96,7 +96,9 @@ function ResultPage() {
         body: new FormData(form),
       });
       alert("Submit Berhasil!.");
-      isLoadingSubmit(false);
+      setIsLoadingSubmit(false);
+      localStorage.removeItem("formData");
+      window.location.reload();
     } catch (error) {
       console.error("Error!", error.message);
     }
@@ -105,22 +107,21 @@ function ResultPage() {
   return (
     <div>
       <h1 className="text-2xl md:text-3xl mb-8 font-bold text-gray-900 text-center">
-        Test Result
+        Your Career Pathway Results
       </h1>
 
-      {!hasVideoLink ? (
+      {/* {!hasVideoLink ? (
         <VideoLinkForm onSubmit={() => window.location.reload()} />
-      ) : (
-        <div>
-          <div className="border-black border-2 rounded-3xl overflow-hidden">
-            <div className="flex gap-5 p-5">
-              <img
-                className="aspect-square object-cover rounded-full w-20"
-                src={profile_image}
-                alt="Profile"
-              />
-              <div className="font-semibold text-gray-800 justify-center flex flex-col w-full max-w-[400px]">
-                <form className="space-y-4 w-full" name="career-pathway-finder">
+      ) : ( */}
+      <div>
+        <div className="border-black border-2 rounded-3xl overflow-hidden">
+          <div className="flex gap-5 p-5 w-full">
+            <div className="font-semibold text-gray-800 justify-center items-center flex flex-col w-full">
+              <form
+                className="space-y-4 w-full bg-gree-500 flex flex-col justify-center items-center"
+                name="career-pathway-finder"
+              >
+                <div className="max-w-[400px] w-full">
                   <label className="flex items-center justify-center">
                     <span className="text-gray-700 w-1/3">Name</span>
                     <input
@@ -182,7 +183,7 @@ function ResultPage() {
                     />
                   </label>
                   {formData.result.map((result) => (
-                    <label className="flex items-center justify-center">
+                    <label className=" items-center justify-center hidden">
                       <input
                         name={result.type}
                         type="hidden"
@@ -199,76 +200,77 @@ function ResultPage() {
                     onClick={(e) => handleOnSubmitTest(e)}
                     className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
                   >
-                    {isLoadingSubmit ? "Loading..." : "Submit Hasil Ujian"}
+                    {isLoadingSubmit ? "Loading..." : "Submit Your Result"}
                   </button>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
-            <div className="h-[2px] w-full border-t-2 border-dashed border-black"></div>
-            <h3 className="text-xl font-bold text-gray-900 text-center p-5 bg-red-100">
-              {topThree.length > 0 ? (
-                topThree.map(({ type }) => type).join(" | ")
-              ) : (
-                <p className="text-red-500">No Result. Something wrong</p>
-              )}
-            </h3>
           </div>
+          <div className="h-[2px] w-full border-t-2 border-dashed border-black"></div>
+          <h3 className="text-xl font-bold text-gray-900 text-center p-5 bg-red-100">
+            {topThree.length > 0 ? (
+              topThree.map(({ type }) => type).join(" | ")
+            ) : (
+              <p className="text-red-500">No Result. Something wrong</p>
+            )}
+          </h3>
+        </div>
 
-          {topThree.length > 0 ? (
-            topThree.map(({ type, points }) => {
-              const percentage = Math.round((points / totalPoints) * 100);
-              let description = "";
-              let majors = [];
-              let relatedPathways = [];
+        {topThree.length > 0 ? (
+          topThree.map(({ type, points }) => {
+            const percentage = Math.round((points / totalPoints) * 100);
+            let description = "";
+            let majors = [];
+            let relatedPathways = [];
 
-              if (type === "Realistic") {
-                description = realistic.description;
-                majors = realistic.majors;
-                relatedPathways = realistic.relatedPathways;
-              } else if (type === "Investigative") {
-                description = investigative.description;
-                majors = investigative.majors;
-                relatedPathways = investigative.relatedPathways;
-              } else if (type === "Artistic") {
-                description = artistic.description;
-                majors = artistic.majors;
-                relatedPathways = artistic.relatedPathways;
-              } else if (type === "Social") {
-                description = social.description;
-                majors = social.majors;
-                relatedPathways = social.relatedPathways;
-              } else if (type === "Enterprising") {
-                description = enterprising.description;
-                majors = enterprising.majors;
-                relatedPathways = enterprising.relatedPathways;
-              } else if (type === "Conventional") {
-                description = conventional.description;
-                majors = conventional.majors;
-                relatedPathways = conventional.relatedPathways;
-              }
+            if (type === "Realistic") {
+              description = realistic.description;
+              majors = realistic.majors;
+              relatedPathways = realistic.relatedPathways;
+            } else if (type === "Investigative") {
+              description = investigative.description;
+              majors = investigative.majors;
+              relatedPathways = investigative.relatedPathways;
+            } else if (type === "Artistic") {
+              description = artistic.description;
+              majors = artistic.majors;
+              relatedPathways = artistic.relatedPathways;
+            } else if (type === "Social") {
+              description = social.description;
+              majors = social.majors;
+              relatedPathways = social.relatedPathways;
+            } else if (type === "Enterprising") {
+              description = enterprising.description;
+              majors = enterprising.majors;
+              relatedPathways = enterprising.relatedPathways;
+            } else if (type === "Conventional") {
+              description = conventional.description;
+              majors = conventional.majors;
+              relatedPathways = conventional.relatedPathways;
+            }
 
-              return (
-                <div
-                  key={type}
-                  className="border-black border-2 rounded-3xl overflow-hidden my-4"
-                >
-                  <div className="flex gap-5 p-5 items-center">
-                    <p className="text-3xl font-bold text-gray-900 text-center">
-                      {percentage}%
-                    </p>
-                    <div className="text-gray-800">
-                      <p className="font-bold text-lg">{type}</p>
-                      <p>{description}</p>
-                    </div>
+            return (
+              <div
+                key={type}
+                className="border-black border-2 rounded-3xl overflow-hidden my-4"
+              >
+                <div className="flex gap-5 p-5 items-center">
+                  <p className="text-3xl font-bold text-gray-900 text-center">
+                    {percentage}%
+                  </p>
+                  <div className="text-gray-800">
+                    <p className="font-bold text-lg">{type}</p>
+                    <p>{description}</p>
                   </div>
                 </div>
-              );
-            })
-          ) : (
-            <p className="text-red-500">No Result. Something wrong</p>
-          )}
-        </div>
-      )}
+              </div>
+            );
+          })
+        ) : (
+          <p className="text-red-500">No Result. Something wrong</p>
+        )}
+      </div>
+      {/* )} */}
     </div>
   );
 }

@@ -32,9 +32,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
 
     if (unansweredQuestions.length > 0) {
       alert(
-        `Ada pertanyaan yang belum dijawab! Pertanyaan nomor: ${unansweredQuestions.join(
-          ", "
-        )}`
+        `Please be sure question number: ${unansweredQuestions.join(", ")}`
       );
       unansweredQuestionRef.current.scrollIntoView({ behavior: "smooth" });
     } else {
@@ -55,22 +53,28 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="space-y-4">
+      <div className="space-y-4 flex flex-col justify-center items-center">
+        <h2 className="text-lg md:text-3xl font-semibold mx-auto">
+          Career Pathways Test
+        </h2>
+        <p className="mb-5">
+          This question is not about right or wrong; please choose according to
+          your interest.
+        </p>
         {slides[currentSlide].map((question, idx) => (
           <div
             key={question.id}
             ref={question.answer === null ? unansweredQuestionRef : null}
-            className={`border-dashed border-black border-2 p-1 rounded-3xl w-full md:w-[450px] mx-auto shadow-md ${
+            className={`border-dashed border-black border-2 p-1 flex justify-between items-center p-5 rounded-3xl w-full md:w-[450px] mx-auto shadow-md ${
               question.answer !== null ? "bg-blue-100" : "bg-pink-200"
             }`}
           >
             <p>
               <strong>
-                Soal{" "}
                 {slides[currentSlide].indexOf(question) +
                   1 +
                   currentSlide * questionsPerSlide}
-                :{" "}
+                .{" "}
               </strong>
               {question.question}
             </p>
@@ -81,7 +85,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                   question.answer === true ? "bg-blue-300" : "bg-gray-200"
                 }`}
               >
-                True
+                Yes
               </button>
               <button
                 onClick={() => handleAnswerChange(question.id, false)}
@@ -89,7 +93,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                   question.answer === false ? "bg-blue-300" : "bg-gray-200"
                 }`}
               >
-                False
+                No
               </button>
             </div>
           </div>
@@ -128,12 +132,14 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
           Page {currentSlide + 1} of {slides.length}
         </p>
 
-        <button
-          onClick={handleSubmit}
-          className="rounded-md bg-blue-200 w-full md:max-w-[50%] mx-auto flex justify-center px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Submit
-        </button>
+        {currentSlide === slides.length - 1 && (
+          <button
+            onClick={handleSubmit}
+            className="rounded-md bg-blue-200 w-full md:max-w-[50%] mx-auto flex justify-center px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            Submit
+          </button>
+        )}
       </div>
     </div>
   );

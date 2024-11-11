@@ -6,7 +6,7 @@ function FirstForm() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [dob, setDob] = useState("");
-  const [jurusan, setJurusan] = useState("cp");
+  const [jurusan, setJurusan] = useState("");
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -15,28 +15,28 @@ function FirstForm() {
     const newErrors = {};
 
     // Validasi No Formulir
-    if (!/^\d{10}$/.test(noFormulir)) {
-      newErrors.noFormulir = "No Formulir harus berupa angka dan 10 karakter.";
+    if (!/^\d+$/.test(noFormulir)) {
+      newErrors.noFormulir = "Form Number must be digits only.";
     }
 
-    // Validasi Email
+    // Email Validation
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      newErrors.email = "Email tidak valid.";
+      newErrors.email = "Invalid email address.";
     }
 
-    // Validasi Nama
+    // Name Validation
     if (!name) {
-      newErrors.name = "Nama tidak boleh kosong.";
+      newErrors.name = "Name cannot be empty.";
     }
 
-    // Validasi Tanggal Lahir
+    // Date of Birth Validation
     if (!dob) {
-      newErrors.dob = "Tanggal Lahir harus diisi.";
+      newErrors.dob = "Date of Birth is required.";
     }
 
-    // Validasi Jurusan
+    // Major Validation
     if (!jurusan) {
-      newErrors.jurusan = "Jurusan harus dipilih.";
+      newErrors.jurusan = "Major must be selected.";
     }
 
     setErrors(newErrors);
@@ -62,9 +62,12 @@ function FirstForm() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-xs">
+      <div className="w-full flex flex-col items-center max-w-xs">
+        <h2 className="text-lg md:text-3xl font-semibold mb-3 mx-auto">
+          Career Pathways Test
+        </h2>
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          className="bg-white shadow-md rounded px-8 pt-6 mx-auto pb-8 mb-4"
           onSubmit={(e) => e.preventDefault()}
         >
           <div className="mb-4">
@@ -72,7 +75,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="noFormulir"
             >
-              No Formulir
+              Form Number
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -92,7 +95,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="email"
             >
-              Email Pribadi
+              E-mail (Personal)
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -112,7 +115,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="name"
             >
-              Nama
+              Name
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline uppercase"
@@ -132,7 +135,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="dob"
             >
-              Tanggal Lahir
+              Date of Birth
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -151,7 +154,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="jurusan"
             >
-              Jurusan
+              Departement
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -159,7 +162,10 @@ function FirstForm() {
               value={jurusan}
               onChange={(e) => setJurusan(e.target.value)}
             >
-              <option value="cp">Creativepreneurhip</option>
+              <option value="" disabled>
+                Please select a department
+              </option>
+              <option value="cp">Creativepreneurship</option>
               <option value="dbi">Digital Business Innovation</option>
             </select>
             {errors.jurusan && (

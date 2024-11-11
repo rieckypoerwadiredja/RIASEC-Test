@@ -72,26 +72,49 @@ function Application() {
   };
 
   return (
-    <div className="px-10 pb-10 pt-5">
-      {formData && !isSubmitted && (
-        <div className="mb-5 p-4 border rounded-md bg-gray-100">
-          <h2 className="text-lg font-semibold">Form Data</h2>
-          <p>No Formulir: {formData.noFormulir}</p>
-          <p>Email: {formData.email}</p>
-          <p>Name: {formData.name}</p>
-          <p>Date of Birth: {formData.dob}</p>
-          <p>Jurusan: {formData.jurusan}</p>
+    <div className="px-10 pb-10 pt-5 flex justify-center items-center min-h-screen">
+      {formData && !isSubmitted && !startTest && (
+        <div className="mb-5 p-4 w-fit mx-auto border rounded-md bg-gray-100 shadow-md">
+          <h2 className="text-lg md:text-3xl font-semibold mb-3">Form Data</h2>
+          <div className="my-5">
+            <div className="flex justify-between">
+              <p className="w-1/4">Form Number</p>
+              <p className="w-3/4">: {formData.noFormulir}</p>
+            </div>
+            <div className="flex justify-between">
+              <p className="w-1/4">Name</p>
+              <p className="w-3/4">: {formData.name}</p>
+            </div>
+            <div className="flex justify-between">
+              <p className="w-1/4">E-mail</p>
+              <p className="w-3/4">: {formData.email}</p>
+            </div>
+            <div className="flex justify-between">
+              <p className="w-1/4">Date of Birth</p>
+              <p className="w-3/4">: {formData.dob}</p>
+            </div>
+            <div className="flex justify-between">
+              <p className="w-1/4">Departement</p>
+              <p className="w-3/4">
+                :{" "}
+                {formData.jurusan === "cp"
+                  ? "Creativepreneurship"
+                  : "Digital Business Innovation"}
+              </p>
+            </div>
+          </div>
+
           {!startTest && (
             <>
-              <p className="mt-3 text-sm text-red-500">
-                Jika ini bukan data Anda, silakan klik tombol di bawah untuk
-                menghapus data.
+              <p className="mt-3 text-sm text-black">
+                If the information is <b>Correct</b>, please click 'Accept and
+                Start Test' to begin.
               </p>
-              <div>
+              <div className="flex gap-4">
                 <button
                   onClick={() => {
                     const isConfirmed = window.confirm(
-                      "Data tidak akan bisa diubah kembali setelah test dimulai. Apakah Anda sudah yakin dengan data yang Anda masukkan?"
+                      "Please be sure the data is correct"
                     );
                     if (isConfirmed) {
                       setStartTest(true);
