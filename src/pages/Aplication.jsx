@@ -5,31 +5,38 @@ import questionsData from "../data/questionsData";
 import { useNavigate } from "react-router";
 
 function Application() {
-  const [questions, setQuestions] = useState(questionsData); // List Data
-  const [isSubmitted, setIsSubmitted] = useState(false); // Submit lalu tampilkan resultnya
-  const [points, setPoints] = useState({}); // Menghitung jumlah point tiap jenisnya
-  const [formData, setFormData] = useState(null); // Menyimpan data form jika ada di local storage
+  const [questions, setQuestions] = useState(questionsData);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [points, setPoints] = useState({});
+  const [formData, setFormData] = useState(null);
   const [startTest, setStartTest] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true); // State untuk welcome screen
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Cek apakah data form ada di local storage
     const storedFormData = localStorage.getItem("formData");
     if (storedFormData) {
       const formData = JSON.parse(storedFormData);
       if (formData.result) {
         setIsSubmitted(true);
       }
-      setFormData(formData); // Set data form jika ada
-
-      // Jika formData sudah ada dan terdapat topThree, set isSubmitted menjadi true
-    } else {
-      navigate("/register"); // Arahkan ke halaman register jika formData tidak ada
+      setFormData(formData);
     }
   }, []);
 
+  const handleStartWelcome = () => {
+    setShowWelcome(false); // Sembunyikan welcome screen
+    if (!formData) {
+      navigate("/register"); // Jika belum ada data, redirect ke register
+    }
+  };
+
+  // const handleRegisterComplete = () => {
+  //   navigate("/"); // Redirect ke halaman awal setelah register
+  //   setShowWelcome(false);
+  // };
+
   const handleSubmit = () => {
-    // Validasi semua pertanyaan sudah dijawab (tidak ada nilai null)
     const allAnswered = questions.every((question) => question.answer !== null);
 
     if (!allAnswered) {
@@ -37,13 +44,11 @@ function Application() {
       return;
     }
 
-    // Set semua point awal menjadi 0
     const initialPoints = questions.reduce((acc, question) => {
       acc[question.type] = 0;
       return acc;
     }, {});
 
-    // 1 true = 1 point, 1 false = 0 point
     const calculatedPoints = questions.reduce((acc, question) => {
       if (question.answer === true) {
         acc[question.type] += 1;
@@ -51,31 +56,59 @@ function Application() {
       return acc;
     }, initialPoints);
 
-    // Membuat objek hasil dengan semua data poin
     const result = Object.entries(calculatedPoints).map(([type, points]) => ({
       type,
       points,
     }));
 
-    // Mendapatkan data formulir yang sudah ada di localStorage
     const formData = JSON.parse(localStorage.getItem("formData")) || {};
-
-    // Menambahkan hasil ke dalam formData
     formData.result = result;
 
-    // Simpan objek formData yang sudah diperbarui ke localStorage
     localStorage.setItem("formData", JSON.stringify(formData));
 
-    // Simpan points dan set isSubmitted
     setPoints(calculatedPoints);
     setIsSubmitted(true);
   };
 
+  useEffect(() => {
+    const formData = JSON.parse(localStorage.getItem("formData"));
+    if (formData) {
+      setShowWelcome(false);
+    } else {
+      setShowWelcome(true);
+    }
+  }, []);
+
   return (
-    <div className="px-10 pb-10 pt-5 flex justify-center items-center min-h-screen">
-      {formData && !isSubmitted && !startTest && (
+    <div className="px-10 pb-10 pt-5 flex justify-center items-center min-h-screen max-w-[760px] mx-auto">
+      {showWelcome && (
+        <div className="mb-5 p-4 w-fit mx-auto border rounded-md bg-gray-100 shadow-md text-center">
+          <h1 className="text-2xl md:text-4xl font-semibold mb-4">
+            Welcome to Career Pathway Test
+          </h1>
+          <p className="text-lg mb-5">
+            The Career Pathway Test helps individuals discover careers that
+            align with their interests, preferences, and personality, guiding
+            them toward more fulfilling career choices.
+          </p>
+          <button
+            onClick={handleStartWelcome}
+            className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Start
+          </button>
+        </div>
+      )}
+
+      {!showWelcome && formData && !isSubmitted && !startTest && (
         <div className="mb-5 p-4 w-fit mx-auto border rounded-md bg-gray-100 shadow-md">
-          <h2 className="text-lg md:text-3xl font-semibold mb-3">Form Data</h2>
+          <h2 className="text-lg md:text-3xl font-semibold mb-3">
+            Career Pathway Test
+          </h2>
+          <p>
+            You can review and confirm your details below before starting the
+            test:
+          </p>
           <div className="my-5">
             <div className="flex justify-between">
               <p className="w-1/4">Form Number</p>
@@ -126,8 +159,8 @@ function Application() {
                 </button>
                 <button
                   onClick={() => {
-                    localStorage.removeItem("formData"); // Hapus data dari local storage
-                    setFormData(null); // Update state agar tampilan diperbarui
+                    localStorage.removeItem("formData");
+                    setFormData(null);
                     navigate("/register");
                   }}
                   className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"

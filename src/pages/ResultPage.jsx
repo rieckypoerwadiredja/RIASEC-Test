@@ -95,7 +95,7 @@ function ResultPage() {
         method: "POST",
         body: new FormData(form),
       });
-      alert("Submit Berhasil!.");
+      alert("Done! The result will be send to your mail \n Thank You.");
       setIsLoadingSubmit(false);
       localStorage.removeItem("formData");
       window.location.reload();
@@ -193,6 +193,101 @@ function ResultPage() {
                       />
                     </label>
                   ))}
+
+                  {topThree.map((result, idx) => (
+                    <React.Fragment key={idx}>
+                      <label className="items-center justify-center hidden">
+                        <input
+                          name={`Result_${idx + 1}`}
+                          type="hidden"
+                          value={result.type || "[Result]"}
+                          readOnly
+                          className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                        />
+                      </label>
+                      <label className="items-center justify-center hidden">
+                        <input
+                          name={`Percent_Result_${idx + 1}`}
+                          type="hidden"
+                          value={`${Math.round(
+                            (result.points / totalPoints) * 100
+                          )}%`}
+                          readOnly
+                          className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                        />
+                      </label>
+                      <label className="items-center justify-center hidden">
+                        <input
+                          name={`Desc_Result_${idx + 1}`}
+                          type="hidden"
+                          value={
+                            result.type === "Realistic"
+                              ? realistic.description
+                              : result.type === "Investigative"
+                              ? investigative.description
+                              : result.type === "Artistic"
+                              ? artistic.description
+                              : result.type === "Social"
+                              ? social.description
+                              : result.type === "Enterprising"
+                              ? enterprising.description
+                              : result.type === "Conventional"
+                              ? conventional.description
+                              : "[Description]"
+                          }
+                          readOnly
+                          className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                        />
+                      </label>
+                      <label className="items-center justify-center hidden">
+                        <input
+                          name={`Major_Result_${idx + 1}`}
+                          type="hidden"
+                          value={
+                            result.type === "Realistic"
+                              ? realistic.majors.join(", ")
+                              : result.type === "Investigative"
+                              ? investigative.majors.join(", ")
+                              : result.type === "Artistic"
+                              ? artistic.majors.join(", ")
+                              : result.type === "Social"
+                              ? social.majors.join(", ")
+                              : result.type === "Enterprising"
+                              ? enterprising.majors.join(", ")
+                              : result.type === "Conventional"
+                              ? conventional.majors.join(", ")
+                              : "[Majors]"
+                          }
+                          readOnly
+                          className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                        />
+                      </label>
+                      <label className="items-center justify-center hidden">
+                        <input
+                          name={`RelatedPathways_Result_${idx + 1}`}
+                          type="hidden"
+                          value={
+                            result.type === "Realistic"
+                              ? realistic.relatedPathways.join(", ")
+                              : result.type === "Investigative"
+                              ? investigative.relatedPathways.join(", ")
+                              : result.type === "Artistic"
+                              ? artistic.relatedPathways.join(", ")
+                              : result.type === "Social"
+                              ? social.relatedPathways.join(", ")
+                              : result.type === "Enterprising"
+                              ? enterprising.relatedPathways.join(", ")
+                              : result.type === "Conventional"
+                              ? conventional.relatedPathways.join(", ")
+                              : "[Related Pathways]"
+                          }
+                          readOnly
+                          className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md p-2"
+                        />
+                      </label>
+                    </React.Fragment>
+                  ))}
+
                   {/* Tombol Submit Hasil Ujian */}
                   <button
                     type="submit"
