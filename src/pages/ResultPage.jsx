@@ -71,7 +71,7 @@ function ResultPage() {
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const handleOnSubmitTest = async (e) => {
     const scriptURL =
-      "https://script.google.com/macros/s/AKfycbz_Cv6PVb9HGuXRPozdGNDOkLhtHVpLfjBNZi5iUPZVQSOfg74EqvQtKMeigUju0hcW/exec";
+      "https://script.google.com/macros/s/AKfycbz1OTOSqIKA6ivyuEjhG8g1DZSqY0BKI141Q1qCoXAmN8f2orN7lml-QyRgTc78XpE9LQ/exec";
     const form = document.forms["career-pathway-finder"];
 
     // Cek data formData untuk field yang kosong
