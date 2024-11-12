@@ -87,9 +87,9 @@ function Application() {
             Welcome to Career Pathway Test
           </h1>
           <p className="text-lg mb-5">
-            The Career Pathway Test helps individuals discover careers that
-            align with their interests, preferences, and personality, guiding
-            them toward more fulfilling career choices.
+            This application helps individuals discover careers that align with
+            their interests, preferences, and personality, guiding them toward
+            more fulfilling career choices.
           </p>
           <button
             onClick={handleStartWelcome}
