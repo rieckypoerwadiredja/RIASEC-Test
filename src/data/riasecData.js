@@ -1,6 +1,6 @@
 const realistic = {
   type: "Realistic",
-  description: "These people are often good at mechanical or athletic jobs.",
+  description: "You are often good at mechanical or athletic jobs.",
   majors: [
     "Agriculture",
     "Health Assistant",
@@ -21,7 +21,7 @@ const realistic = {
 
 const investigative = {
   type: "Investigative",
-  description: "These people like to watch, learn, analyze and solve problems.",
+  description: "You like to watch, learn, analyze and solve problems.",
   majors: [
     "Marine Biology",
     "Engineering",
@@ -43,7 +43,7 @@ const investigative = {
 const artistic = {
   type: "Artistic",
   description:
-    "These people like to work in unstructured situations where they can use their creativity.",
+    "You like to work in unstructured situations where they can use their creativity.",
   majors: [
     "Communications",
     "Cosmetology",
@@ -58,8 +58,7 @@ const artistic = {
 
 const social = {
   type: "Social",
-  description:
-    "These people like to work with other people, rather than things.",
+  description: "You like to work with other people, rather than things.",
   majors: [
     "Counseling",
     "Nursing",
@@ -75,7 +74,7 @@ const social = {
 const enterprising = {
   type: "Enterprising",
   description:
-    "These people like to work with others and enjoy persuading and performing.",
+    "You like to work with others and enjoy persuading and performing.",
   majors: [
     "Fashion Merchandising",
     "Real Estate",
@@ -95,7 +94,7 @@ const enterprising = {
 const conventional = {
   type: "Conventional",
   description:
-    "These people are very detail-oriented, organized, and like to work with data.",
+    "You are very detail-oriented, organized, and like to work with data.",
   majors: [
     "Accounting",
     "Court Reporting",
