@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-
+import innovative_img from "../assets/images/full_innovative.jpg";
+import Footer from "../component/Footer";
 function FirstForm() {
   const [noFormulir, setNoFormulir] = useState("");
   const [email, setEmail] = useState("");
@@ -61,24 +62,24 @@ function FirstForm() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="w-full flex flex-col items-center max-w-xs">
+    <div className="flex flex-col items-center justify-center w-full mt-5">
+      <div className="w-full flex flex-col items-center max-w-sm">
         <h2 className="text-lg md:text-3xl font-semibold mb-3 mx-auto">
-          Career Pathways Test
+          Registration
         </h2>
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 mx-auto pb-8 mb-4"
+          className="w-full rounded px-8 pt-2 mx-auto pb-8 mb-4"
           onSubmit={(e) => e.preventDefault()}
         >
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="noFormulir"
             >
               Form Number
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="noFormulir"
               type="text"
               placeholder="Enter Form Number"
@@ -92,13 +93,13 @@ function FirstForm() {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="email"
             >
               E-mail (Personal)
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
               placeholder="Enter Your Email"
@@ -112,13 +113,13 @@ function FirstForm() {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="name"
             >
               Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline uppercase"
+              className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
               placeholder="Enter Your Name"
@@ -132,13 +133,13 @@ function FirstForm() {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="dob"
             >
               Date of Birth
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="dob"
               type="date"
               value={dob}
@@ -151,13 +152,13 @@ function FirstForm() {
 
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="jurusan"
             >
               Departement
             </label>
             <select
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="jurusan"
               value={jurusan}
               onChange={(e) => setJurusan(e.target.value)}
@@ -175,15 +176,17 @@ function FirstForm() {
 
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="px-5 mt-5 sm:px-14 shadow-md font-medium uppercase py-2 bg-third mx-auto text-white rounded-3xl hover:bg-third/80"
               type="button"
               onClick={handleStartTest}
             >
-              Start Test
+              Registration
             </button>
           </div>
         </form>
       </div>
+      <img className="" src={innovative_img} alt="" />
+      <Footer isWave={false} />
     </div>
   );
 }

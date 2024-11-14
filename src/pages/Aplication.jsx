@@ -3,7 +3,10 @@ import QuestionPage from "./QuestionPage";
 import ResultPage from "./ResultPage";
 import questionsData from "../data/questionsData";
 import { useNavigate } from "react-router";
-
+// Images
+import creative_img from "../assets/images/creative.png";
+import Nav from "../component/Nav";
+import Footer from "../component/Footer";
 function Application() {
   const [questions, setQuestions] = useState(questionsData);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -80,97 +83,110 @@ function Application() {
   }, []);
 
   return (
-    <div className="px-10 pb-10 pt-5 flex justify-center items-center min-h-screen max-w-[760px] mx-auto">
+    <div className="flex flex-col justify-center items-center mx-auto">
       {showWelcome && (
-        <div className="mb-5 p-4 w-fit mx-auto border rounded-md bg-gray-100 shadow-md text-center">
-          <h1 className="text-2xl md:text-4xl font-semibold mb-4">
-            Welcome to Career Pathway Test
-          </h1>
-          <p className="text-lg mb-5">
-            This application helps individuals discover careers that align with
-            their interests, preferences, and personality, guiding them toward
-            more fulfilling career choices.
-          </p>
-          <button
-            onClick={handleStartWelcome}
-            className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            Start
-          </button>
-        </div>
+        <>
+          <div className="relative !max-h-[calc(100%-96px)] flex flex-col justify-center w-full">
+            <img
+              className="mx-auto h-full mt-5 object-contain"
+              src={creative_img}
+              alt="Creative Image"
+            />
+            <h1 className="text-2xl md:text-4xl font-semibold my-4 !mx-auto w-fit text-center">
+              Welcome to Career Pathway Test
+            </h1>
+            <p className="text-lg mb-5 text-center max-w-[765px] mx-auto">
+              This application helps individuals discover careers that align
+              with their interests, preferences, and personality, guiding them
+              toward more fulfilling career choices.
+            </p>
+            <button
+              onClick={handleStartWelcome}
+              className="px-5 sm:px-20 font-medium uppercase py-2 bg-third mx-auto text-white rounded-3xl shadow-sm hover:bg-third/80"
+            >
+              Start
+            </button>
+          </div>
+          <Footer />
+        </>
       )}
 
       {!showWelcome && formData && !isSubmitted && !startTest && (
-        <div className="mb-5 p-4 w-fit mx-auto border rounded-md bg-gray-100 shadow-md">
-          <h2 className="text-lg md:text-3xl font-semibold mb-3">
-            Career Pathway Test
-          </h2>
-          <p>
-            You can review and confirm your details below before starting the
-            test:
-          </p>
-          <div className="my-5">
-            <div className="flex justify-between">
-              <p className="w-1/4">Form Number</p>
-              <p className="w-3/4">: {formData.noFormulir}</p>
-            </div>
-            <div className="flex justify-between">
-              <p className="w-1/4">Name</p>
-              <p className="w-3/4">: {formData.name}</p>
-            </div>
-            <div className="flex justify-between">
-              <p className="w-1/4">E-mail</p>
-              <p className="w-3/4">: {formData.email}</p>
-            </div>
-            <div className="flex justify-between">
-              <p className="w-1/4">Date of Birth</p>
-              <p className="w-3/4">: {formData.dob}</p>
-            </div>
-            <div className="flex justify-between">
-              <p className="w-1/4">Departement</p>
-              <p className="w-3/4">
-                :{" "}
-                {formData.jurusan === "cp"
-                  ? "Creativepreneurship"
-                  : "Digital Business Innovation"}
-              </p>
-            </div>
-          </div>
-
-          {!startTest && (
+        <>
+          <div className="relative mb-5 p-4 w-fit mx-auto rounded-md mt-10">
             <>
-              <p className="mt-3 text-sm text-black">
-                If the information is <b>Correct</b>, please click 'Accept and
-                Start Test' to begin.
+              <h2 className="text-3xl text-center md:text-3xl font-semibold mb-3">
+                Career Pathway Test
+              </h2>
+              <p>
+                You can review and confirm your details below before starting
+                the test:
               </p>
-              <div className="flex gap-4">
-                <button
-                  onClick={() => {
-                    const isConfirmed = window.confirm(
-                      "Please be sure the data is correct"
-                    );
-                    if (isConfirmed) {
-                      setStartTest(true);
-                    }
-                  }}
-                  className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                >
-                  Accept and Start Test
-                </button>
-                <button
-                  onClick={() => {
-                    localStorage.removeItem("formData");
-                    setFormData(null);
-                    navigate("/register");
-                  }}
-                  className="mt-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                >
-                  Delete
-                </button>
+              <div className="my-5">
+                <div className="flex justify-between">
+                  <p className="w-1/4">Form Number</p>
+                  <p className="w-3/4">: {formData.noFormulir}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="w-1/4">Name</p>
+                  <p className="w-3/4">: {formData.name}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="w-1/4">E-mail</p>
+                  <p className="w-3/4">: {formData.email}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="w-1/4">Date of Birth</p>
+                  <p className="w-3/4">: {formData.dob}</p>
+                </div>
+                <div className="flex justify-between">
+                  <p className="w-1/4">Departement</p>
+                  <p className="w-3/4">
+                    :{" "}
+                    {formData.jurusan === "cp"
+                      ? "Creativepreneurship"
+                      : "Digital Business Innovation"}
+                  </p>
+                </div>
               </div>
             </>
-          )}
-        </div>
+
+            {!startTest && (
+              <>
+                <p className="mt-3 text-sm text-black">
+                  If the information is <b>Correct</b>, please click 'Accept and
+                  Start Test' to begin.
+                </p>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => {
+                      const isConfirmed = window.confirm(
+                        "Please be sure the data is correct"
+                      );
+                      if (isConfirmed) {
+                        setStartTest(true);
+                      }
+                    }}
+                    className="px-5 font-medium uppercase py-2 bg-primary mt-5 text-white rounded-3xl shadow-sm hover:bg-primary/80"
+                  >
+                    Accept and Start Test
+                  </button>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("formData");
+                      setFormData(null);
+                      navigate("/register");
+                    }}
+                    className="px-5 font-medium uppercase py-2 bg-third mt-5 text-white rounded-3xl shadow-sm hover:bg-third/80"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+          <Footer />
+        </>
       )}
 
       {isSubmitted && <ResultPage points={points} />}

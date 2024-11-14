@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
+import Footer from "../component/Footer";
 
 function QuestionPage({ questions, setQuestions, handleSubmit }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,96 +53,113 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
   }, [currentSlide]);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="space-y-4 flex flex-col justify-center items-center">
-        <h2 className="text-lg md:text-3xl font-semibold mx-auto">
-          Career Pathways Test
-        </h2>
-        <p className="mb-5">
-          This question is not about right or wrong; please choose according to
-          your interest.
-        </p>
-        {slides[currentSlide].map((question, idx) => (
-          <div
-            key={question.id}
-            ref={question.answer === null ? unansweredQuestionRef : null}
-            className={`border-dashed border-black border-2 p-1 flex justify-between items-center p-5 rounded-3xl w-full md:w-[450px] mx-auto shadow-md ${
-              question.answer !== null ? "bg-blue-100" : "bg-pink-200"
-            }`}
-          >
-            <p>
-              <strong>
-                {slides[currentSlide].indexOf(question) +
-                  1 +
-                  currentSlide * questionsPerSlide}
-                .{" "}
-              </strong>
-              {question.question}
-            </p>
-            <div className="flex gap-2 mt-2">
-              <button
-                onClick={() => handleAnswerChange(question.id, true)}
-                className={`px-3 py-1 rounded-md ${
-                  question.answer === true ? "bg-blue-300" : "bg-gray-200"
-                }`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => handleAnswerChange(question.id, false)}
-                className={`px-3 py-1 rounded-md ${
-                  question.answer === false ? "bg-blue-300" : "bg-gray-200"
-                }`}
-              >
-                No
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-4 flex flex-col items-center gap-2">
-        <div className="flex gap-2">
-          <button
-            onClick={goToPreviousSlide}
-            disabled={currentSlide === 0}
-            className={`px-4 py-2 rounded-md ${
-              currentSlide === 0
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-gray-300 text-black hover:bg-gray-400"
-            }`}
-          >
-            Previous
-          </button>
-
-          <button
-            onClick={goToNextSlide}
-            disabled={currentSlide === slides.length - 1}
-            className={`px-4 py-2 rounded-md ${
-              currentSlide === slides.length - 1
-                ? "bg-blue-200 text-gray-500 cursor-not-allowed"
-                : "bg-blue-500 text-white hover:bg-blue-600"
-            }`}
-          >
-            Next
-          </button>
+    <>
+      <div className="flex flex-col items-center mt-5">
+        <div className="space-y-4 flex flex-col justify-center items-center">
+          <h2 className="text-3xl md:text-3xl font-semibold mx-auto">
+            Career Pathways Test
+          </h2>
+          <p className="mb-10 text-center">
+            This question is not about right or wrong; please choose according
+            to your interest.
+          </p>
+          {slides[currentSlide].map((question, idx) => (
+            <>
+              <div className="flex items-center gap-x-3 px-3 w-full">
+                <div className="w-10 h-10 flex items-center justify-center rounded-full aspect-square bg-primary text-white font-bold">
+                  {slides[currentSlide].indexOf(question) +
+                    1 +
+                    currentSlide * questionsPerSlide}
+                  .{" "}
+                </div>
+                <div
+                  key={question.id}
+                  ref={question.answer === null ? unansweredQuestionRef : null}
+                  className={`border-primary border-2 flex justify-between items-center p-3 rounded-3xl w-full md:w-[450px] mx-auto shadow-md ${
+                    question.answer !== null ? "bg-secondary" : "bg-pink-200"
+                  }`}
+                >
+                  <p>
+                    <strong>
+                      {/* {slides[currentSlide].indexOf(question) +
+                      1 +
+                      currentSlide * questionsPerSlide}
+                    .{" "} */}
+                    </strong>
+                    {question.question}
+                  </p>
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => handleAnswerChange(question.id, true)}
+                      className={`px-3 py-1 rounded-md ${
+                        question.answer === true
+                          ? "bg-primary text-white"
+                          : "bg-gray-300"
+                      }`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      onClick={() => handleAnswerChange(question.id, false)}
+                      className={`px-3 py-1 rounded-md ${
+                        question.answer === false
+                          ? "bg-primary text-white"
+                          : "bg-gray-300"
+                      }`}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </>
+          ))}
         </div>
 
-        {/* Keterangan Slide */}
-        <p className="text-gray-600">
-          Page {currentSlide + 1} of {slides.length}
-        </p>
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <div className="flex gap-2">
+            <button
+              onClick={goToPreviousSlide}
+              disabled={currentSlide === 0}
+              className={`px-4 py-2 rounded-md ${
+                currentSlide === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-300 text-black hover:bg-gray-400"
+              }`}
+            >
+              Previous
+            </button>
 
-        {currentSlide === slides.length - 1 && (
-          <button
-            onClick={handleSubmit}
-            className="rounded-md bg-blue-200 w-full md:max-w-[50%] mx-auto flex justify-center px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Submit
-          </button>
-        )}
+            <button
+              onClick={goToNextSlide}
+              disabled={currentSlide === slides.length - 1}
+              className={`px-4 py-2 rounded-md ${
+                currentSlide === slides.length - 1
+                  ? "bg-secondary text-black cursor-not-allowed"
+                  : "bg-primary text-white hover:bg-primary/80"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+
+          {/* Keterangan Slide */}
+          <p className="text-gray-600">
+            Page {currentSlide + 1} of {slides.length}
+          </p>
+
+          {currentSlide === slides.length - 1 && (
+            <button
+              onClick={handleSubmit}
+              className="px-5 sm:px-20 font-medium uppercase py-2 bg-third mt-5 text-white rounded-3xl shadow-sm hover:bg-third/80"
+            >
+              Submit
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 
