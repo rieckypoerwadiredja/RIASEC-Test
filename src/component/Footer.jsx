@@ -20,8 +20,8 @@ function Footer({ isWave = true }) {
       <footer className="relative gap-y-8 md:gap-0 py-10 md:pb-20 md:pt-10 bg-secondary w-full flex flex-col md:flex-row justify-between shadow-md h-auto px-[3%] z-50">
         <div className="flex-1 flex flex-col items-start justify-start md:items-center md:justify-center">
           <div>
-            <p className="text-xl mb-2 font-semibold">
-              CREATIVEPRENEURHSHIP DEPARTEMENT
+            <p className="text-xl mb-2 font-semibold uppercase">
+              Creativepreneurship DEPARTEMENT
             </p>
             <p>BINUS UNIVERSITY @BANDUNG</p>
           </div>
