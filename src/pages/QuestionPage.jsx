@@ -125,7 +125,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                   : "bg-gray-300 text-black hover:bg-gray-400"
               }`}
             >
-              Previous
+              Sebelumnya
             </button>
 
             <button
@@ -137,7 +137,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                   : "bg-primary text-white hover:bg-primary/80"
               }`}
             >
-              Next
+              Selanjutnya
             </button>
           </div>
 

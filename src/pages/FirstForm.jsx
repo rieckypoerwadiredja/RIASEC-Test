@@ -82,7 +82,7 @@ function FirstForm() {
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="noFormulir"
               type="text"
-              placeholder="Enter Form Number"
+              placeholder="Tuliskan Nomor Formulir"
               value={noFormulir}
               onChange={(e) => setNoFormulir(e.target.value)}
             />
@@ -102,7 +102,7 @@ function FirstForm() {
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-              placeholder="Enter Your Email"
+              placeholder="Tuliskan Email pribadi kamu"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -122,7 +122,7 @@ function FirstForm() {
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
-              placeholder="Enter Your Name"
+              placeholder="Tuliskan nama kamu"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
