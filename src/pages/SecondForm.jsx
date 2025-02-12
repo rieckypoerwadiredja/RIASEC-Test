@@ -173,7 +173,7 @@ function SecondForm({ noFormulir, email }) {
               type="button"
               onClick={handleStartTest}
             >
-              Start Test
+              Mulai Tes
             </button>
           </div>
         </form>

@@ -34,7 +34,7 @@ function Application() {
     }
   };
 
-  // const handleRegisterComplete = () => {
+  // constPlease fill in all the questions handleRegisterComplete = () => {
   //   navigate("/"); // Redirect ke halaman awal setelah register
   //   setShowWelcome(false);
   // };
@@ -43,7 +43,7 @@ function Application() {
     const allAnswered = questions.every((question) => question.answer !== null);
 
     if (!allAnswered) {
-      alert("Please fill in all the questions");
+      alert("Silakan isi semua pertanyaan");
       return;
     }
 
@@ -93,18 +93,18 @@ function Application() {
               alt="Creative Image"
             />
             <h1 className="text-2xl md:text-4xl font-semibold my-4 !mx-auto w-fit text-center">
-              Welcome to Career Pathway Test
+              Selamat datang di Career Pathway Test
             </h1>
             <p className="text-lg mb-5 text-center max-w-[765px] mx-auto">
-              This application helps individuals discover careers that align
-              with their interests, preferences, and personality, guiding them
-              toward more fulfilling career choices.
+              Aplikasi ini membantu individu menemukan karier yang sesuai dengan
+              minat, preferensi, dan kepribadian mereka, serta membimbing mereka
+              menuju pilihan karier yang lebih memuaskan.
             </p>
             <button
               onClick={handleStartWelcome}
               className="px-5 sm:px-20 font-medium uppercase py-2 bg-third mx-auto text-white rounded-3xl shadow-sm hover:bg-third/80"
             >
-              Start
+              Mulai
             </button>
           </div>
           <Footer />
@@ -119,16 +119,16 @@ function Application() {
                 Career Pathway Test
               </h2>
               <p>
-                You can review and confirm your details below before starting
-                the test:
+                Anda dapat meninjau dan mengonfirmasi detail Anda di bawah ini
+                sebelum memulai tes:
               </p>
               <div className="my-5">
                 <div className="flex justify-between">
-                  <p className="w-1/4">Form Number</p>
+                  <p className="w-1/4">Nomor Formulir</p>
                   <p className="w-3/4">: {formData.noFormulir}</p>
                 </div>
                 <div className="flex justify-between">
-                  <p className="w-1/4">Name</p>
+                  <p className="w-1/4">Nama</p>
                   <p className="w-3/4">: {formData.name}</p>
                 </div>
                 <div className="flex justify-between">
@@ -136,11 +136,11 @@ function Application() {
                   <p className="w-3/4">: {formData.email}</p>
                 </div>
                 <div className="flex justify-between">
-                  <p className="w-1/4">Date of Birth</p>
+                  <p className="w-1/4">Tanggal lahir</p>
                   <p className="w-3/4">: {formData.dob}</p>
                 </div>
                 <div className="flex justify-between">
-                  <p className="w-1/4">Departement</p>
+                  <p className="w-1/4">Departemen</p>
                   <p className="w-3/4">
                     :{" "}
                     {formData.jurusan === "cp"
@@ -154,14 +154,14 @@ function Application() {
             {!startTest && (
               <>
                 <p className="mt-3 text-sm text-black">
-                  If the information is <b>Correct</b>, please click 'Accept and
-                  Start Test' to begin.
+                  Jika informasi sudah <b>Benar</b>, silakan klik "Setuju dan
+                  Mulai Tes" untuk memulai.
                 </p>
                 <div className="flex gap-4">
                   <button
                     onClick={() => {
                       const isConfirmed = window.confirm(
-                        "Please be sure the data is correct"
+                        "Pastikan data yang Anda masukkan sudah benar."
                       );
                       if (isConfirmed) {
                         setStartTest(true);
@@ -169,7 +169,7 @@ function Application() {
                     }}
                     className="px-5 font-medium uppercase py-2 bg-primary mt-5 text-white rounded-3xl shadow-sm hover:bg-primary/80"
                   >
-                    Accept and Start Test
+                    Setuju dan Mulai Tes
                   </button>
                   <button
                     onClick={() => {
@@ -179,7 +179,7 @@ function Application() {
                     }}
                     className="px-5 font-medium uppercase py-2 bg-third mt-5 text-white rounded-3xl shadow-sm hover:bg-third/80"
                   >
-                    Delete
+                    Hapus
                   </button>
                 </div>
               </>

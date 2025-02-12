@@ -1,114 +1,229 @@
+// const realistic = {
+//   type: "Realistic",
+//   description: "You are often good at mechanical or athletic jobs.",
+//   majors: [
+//     "Agriculture",
+//     "Health Assistant",
+//     "Computers",
+//     "Construction",
+//     "Mechanic/Machinist",
+//     "Engineering",
+//     "Food and Hospitality",
+//   ],
+//   relatedPathways: [
+//     "Natural Resources",
+//     "Health Services",
+//     "Industrial and Engineering",
+//     "Technology",
+//     "Arts and Communication",
+//   ],
+// };
+
+// const investigative = {
+//   type: "Investigative",
+//   description: "You like to watch, learn, analyze and solve problems.",
+//   majors: [
+//     "Marine Biology",
+//     "Engineering",
+//     "Chemistry",
+//     "Zoology",
+//     "Medicine/Surgery",
+//     "Consumer Economics",
+//     "Psychology",
+//   ],
+//   relatedPathways: [
+//     "Health Services",
+//     "Business",
+//     "Public and Human Services",
+//     "Industrial and Engineering",
+//     "Technology",
+//   ],
+// };
+
+// const artistic = {
+//   type: "Artistic",
+//   description:
+//     "You like to work in unstructured situations where they can use their creativity.",
+//   majors: [
+//     "Communications",
+//     "Cosmetology",
+//     "Fine and Performing Arts",
+//     "Photography",
+//     "Radio and TV",
+//     "Interior Design",
+//     "Architecture",
+//   ],
+//   relatedPathways: ["Public and Human Services", "Arts and Communication"],
+// };
+
+// const social = {
+//   type: "Social",
+//   description: "You like to work with other people, rather than things.",
+//   majors: [
+//     "Counseling",
+//     "Nursing",
+//     "Physical Therapy",
+//     "Travel",
+//     "Advertising",
+//     "Public Relations",
+//     "Education",
+//   ],
+//   relatedPathways: ["Health Services", "Public and Human Services"],
+// };
+
+// const enterprising = {
+//   type: "Enterprising",
+//   description:
+//     "You like to work with others and enjoy persuading and performing.",
+//   majors: [
+//     "Fashion Merchandising",
+//     "Real Estate",
+//     "Marketing/Sales",
+//     "Law",
+//     "Political Science",
+//     "International Trade",
+//     "Banking/Finance",
+//   ],
+//   relatedPathways: [
+//     "Business",
+//     "Public and Human Services",
+//     "Arts and Communication",
+//   ],
+// };
+
+// const conventional = {
+//   type: "Conventional",
+//   description:
+//     "You are very detail-oriented, organized, and like to work with data.",
+//   majors: [
+//     "Accounting",
+//     "Court Reporting",
+//     "Insurance",
+//     "Administration",
+//     "Medical Records",
+//     "Banking",
+//     "Data Processing",
+//   ],
+//   relatedPathways: [
+//     "Health Services",
+//     "Business",
+//     "Industrial and Engineering",
+//     "Technology",
+//   ],
+// };
+
 const realistic = {
   type: "Realistic",
-  description: "You are often good at mechanical or athletic jobs.",
+  description: "Kamu sering kali unggul dalam pekerjaan mekanik atau atletik.",
   majors: [
-    "Agriculture",
-    "Health Assistant",
-    "Computers",
-    "Construction",
-    "Mechanic/Machinist",
-    "Engineering",
-    "Food and Hospitality",
+    "Pertanian",
+    "Asisten Kesehatan",
+    "Komputer",
+    "Konstruksi",
+    "Mekanik/Mesin",
+    "Rekayasa",
+    "Makanan dan Perhotelan",
   ],
   relatedPathways: [
-    "Natural Resources",
-    "Health Services",
-    "Industrial and Engineering",
-    "Technology",
-    "Arts and Communication",
+    "Sumber Daya Alam",
+    "Layanan Kesehatan",
+    "Industri dan Rekayasa",
+    "Teknologi",
+    "Seni dan Komunikasi",
   ],
 };
 
 const investigative = {
   type: "Investigative",
-  description: "You like to watch, learn, analyze and solve problems.",
+  description:
+    "Kamu suka mengamati, belajar, menganalisis, dan menyelesaikan masalah.",
   majors: [
-    "Marine Biology",
-    "Engineering",
-    "Chemistry",
-    "Zoology",
-    "Medicine/Surgery",
-    "Consumer Economics",
-    "Psychology",
+    "Biologi Laut",
+    "Rekayasa",
+    "Kimia",
+    "Zoologi",
+    "Kedokteran/Bedah",
+    "Ekonomi Konsumen",
+    "Psikologi",
   ],
   relatedPathways: [
-    "Health Services",
-    "Business",
-    "Public and Human Services",
-    "Industrial and Engineering",
-    "Technology",
+    "Layanan Kesehatan",
+    "Bisnis",
+    "Layanan Publik dan Manusia",
+    "Industri dan Rekayasa",
+    "Teknologi",
   ],
 };
 
 const artistic = {
   type: "Artistic",
   description:
-    "You like to work in unstructured situations where they can use their creativity.",
+    "Kamu suka bekerja dalam situasi yang tidak terstruktur di mana kamu bisa menggunakan kreativitasmu.",
   majors: [
-    "Communications",
-    "Cosmetology",
-    "Fine and Performing Arts",
-    "Photography",
-    "Radio and TV",
-    "Interior Design",
-    "Architecture",
+    "Komunikasi",
+    "Kosmetologi",
+    "Seni Rupa dan Pertunjukan",
+    "Fotografi",
+    "Radio dan TV",
+    "Desain Interior",
+    "Arsitektur",
   ],
-  relatedPathways: ["Public and Human Services", "Arts and Communication"],
+  relatedPathways: ["Layanan Publik dan Manusia", "Seni dan Komunikasi"],
 };
 
 const social = {
   type: "Social",
-  description: "You like to work with other people, rather than things.",
+  description: "Kamu suka bekerja dengan orang lain, bukan dengan benda.",
   majors: [
-    "Counseling",
-    "Nursing",
-    "Physical Therapy",
-    "Travel",
-    "Advertising",
-    "Public Relations",
-    "Education",
+    "Konseling",
+    "Keperawatan",
+    "Terapi Fisik",
+    "Perjalanan",
+    "Periklanan",
+    "Hubungan Masyarakat",
+    "Pendidikan",
   ],
-  relatedPathways: ["Health Services", "Public and Human Services"],
+  relatedPathways: ["Layanan Kesehatan", "Layanan Publik dan Manusia"],
 };
 
 const enterprising = {
   type: "Enterprising",
   description:
-    "You like to work with others and enjoy persuading and performing.",
+    "Kamu suka bekerja dengan orang lain dan menikmati membujuk serta tampil.",
   majors: [
-    "Fashion Merchandising",
-    "Real Estate",
-    "Marketing/Sales",
-    "Law",
-    "Political Science",
-    "International Trade",
-    "Banking/Finance",
+    "Merchandising Fashion",
+    "Properti Real Estat",
+    "Pemasaran/Penjualan",
+    "Hukum",
+    "Ilmu Politik",
+    "Perdagangan Internasional",
+    "Perbankan/Keuangan",
   ],
   relatedPathways: [
-    "Business",
-    "Public and Human Services",
-    "Arts and Communication",
+    "Bisnis",
+    "Layanan Publik dan Manusia",
+    "Seni dan Komunikasi",
   ],
 };
 
 const conventional = {
   type: "Conventional",
   description:
-    "You are very detail-oriented, organized, and like to work with data.",
+    "Kamu sangat detail-oriented, terorganisir, dan suka bekerja dengan data.",
   majors: [
-    "Accounting",
-    "Court Reporting",
-    "Insurance",
-    "Administration",
-    "Medical Records",
-    "Banking",
-    "Data Processing",
+    "Akuntansi",
+    "Pelaporan Pengadilan",
+    "Asuransi",
+    "Administrasi",
+    "Rekam Medis",
+    "Perbankan",
+    "Pemrosesan Data",
   ],
   relatedPathways: [
-    "Health Services",
-    "Business",
-    "Industrial and Engineering",
-    "Technology",
+    "Layanan Kesehatan",
+    "Bisnis",
+    "Industri dan Rekayasa",
+    "Teknologi",
   ],
 };
 

@@ -17,27 +17,27 @@ function FirstForm() {
 
     // Validasi No Formulir
     if (!/^\d+$/.test(noFormulir)) {
-      newErrors.noFormulir = "Form Number must be digits only.";
+      newErrors.noFormulir = "Nomor formulir harus berisi angka saja.";
     }
 
     // Email Validation
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      newErrors.email = "Invalid email address.";
+      newErrors.email = "Alamat email tidak valid.";
     }
 
     // Name Validation
     if (!name) {
-      newErrors.name = "Name cannot be empty.";
+      newErrors.name = "Nama tidak boleh kosong.";
     }
 
     // Date of Birth Validation
     if (!dob) {
-      newErrors.dob = "Date of Birth is required.";
+      newErrors.dob = "Tanggal lahir wajib diisi.";
     }
 
     // Major Validation
     if (!jurusan) {
-      newErrors.jurusan = "Major must be selected.";
+      newErrors.jurusan = "Program studi harus dipilih.";
     }
 
     setErrors(newErrors);
@@ -65,7 +65,7 @@ function FirstForm() {
     <div className="flex flex-col items-center justify-center w-full mt-5">
       <div className="w-full flex flex-col items-center max-w-sm">
         <h2 className="text-lg md:text-3xl font-semibold mb-3 mx-auto">
-          Registration
+          Registrasi
         </h2>
         <form
           className="w-full rounded px-8 pt-2 mx-auto pb-8 mb-4"
@@ -76,7 +76,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="noFormulir"
             >
-              Form Number
+              Nomor Formulir
             </label>
             <input
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -116,7 +116,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="name"
             >
-              Name
+              Nama
             </label>
             <input
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -136,7 +136,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="dob"
             >
-              Date of Birth
+              Tanggal Lahir
             </label>
             <input
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -155,7 +155,7 @@ function FirstForm() {
               className="block text-gray-700 text-sm font-bold mb-2 ml-2"
               htmlFor="jurusan"
             >
-              Departement
+              Departemen
             </label>
             <select
               className="shadow appearance-none placeholder-primary font-semibold border-primary text-primary border rounded-3xl w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -164,7 +164,7 @@ function FirstForm() {
               onChange={(e) => setJurusan(e.target.value)}
             >
               <option value="" disabled>
-                Please select a department
+                Silakan pilih departemen
               </option>
               <option value="cp">Creativepreneurship</option>
               <option value="dbi">Digital Business Innovation</option>
@@ -180,7 +180,7 @@ function FirstForm() {
               type="button"
               onClick={handleStartTest}
             >
-              Registration
+              Registrasi
             </button>
           </div>
         </form>

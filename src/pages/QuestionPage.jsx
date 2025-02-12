@@ -32,9 +32,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
       .filter((index) => index !== null); // Ambil nomor pertanyaan yang belum dijawab
 
     if (unansweredQuestions.length > 0) {
-      alert(
-        `Please be sure question number: ${unansweredQuestions.join(", ")}`
-      );
+      alert(`Pastikan nomor pertanyaan: ${unansweredQuestions.join(", ")}`);
       unansweredQuestionRef.current.scrollIntoView({ behavior: "smooth" });
     } else {
       setCurrentSlide((prevSlide) =>
@@ -60,8 +58,8 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
             Career Pathways Test
           </h2>
           <p className="mb-10 text-center">
-            This question is not about right or wrong; please choose according
-            to your interest.
+            Pertanyaan ini tidak memiliki jawaban benar atau salah; silakan
+            pilih sesuai dengan minat Anda.
           </p>
           {slides[currentSlide].map((question, idx) => (
             <>
@@ -97,7 +95,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                           : "bg-gray-300"
                       }`}
                     >
-                      Yes
+                      Ya
                     </button>
                     <button
                       onClick={() => handleAnswerChange(question.id, false)}
@@ -107,7 +105,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
                           : "bg-gray-300"
                       }`}
                     >
-                      No
+                      Tidak
                     </button>
                   </div>
                 </div>
@@ -145,7 +143,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
 
           {/* Keterangan Slide */}
           <p className="text-gray-600">
-            Page {currentSlide + 1} of {slides.length}
+            Halaman {currentSlide + 1} of {slides.length}
           </p>
 
           {currentSlide === slides.length - 1 && (
@@ -153,7 +151,7 @@ function QuestionPage({ questions, setQuestions, handleSubmit }) {
               onClick={handleSubmit}
               className="px-5 sm:px-20 font-medium uppercase py-2 bg-third mt-5 text-white rounded-3xl shadow-sm hover:bg-third/80"
             >
-              Submit
+              Kirim Jawaban
             </button>
           )}
         </div>
