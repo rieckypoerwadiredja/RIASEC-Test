@@ -50,21 +50,17 @@ function VideoLinkForm({ onSubmit }) {
     <div className="p-5 border-black border-2 rounded-3xl min-h-[80vh] my-4">
       <h2 className="text-xl font-bold text-center mb-4">Input Video Link</h2>
       <div className="p-2 bg-blue-200 rounded-lg shadow-md flex flex-col items-start">
-        <p className="text-gray-700 mb-2 text-center">
-          Note: Link harus public, durasi maksimal 5 menit, dengan 3 pertanyaan.
-        </p>
-        <p className="text-gray-700 mb-2 text-center">
-          1. Perkenalkan diri dan sebutkan hal menarik tentang dirimu
-        </p>
-        <p className="text-gray-700 mb-2 text-center">
-          2. Jurusan apa yang Anda minati?
-        </p>
-        <p className="text-gray-700 mb-2 text-center">
-          3. Apa yang membuat Anda tertarik untuk memilih Binus sebagai kampus
-          anda?
+        <p className="text-gray-700 text-center mb-3">
+          Buat video wawancara mandiri, hasil video berupa link sampaikan
+          dibawah. <br /> Note: Perhatikan ketentuan membuat Link Video{" "}
+          <a
+            className="underline text"
+            href="https://drive.google.com/drive/folders/1wcpOF3qBbhXva3nMtaLXO4ZutNwjDWSA?usp=share_link"
+          >
+            link
+          </a>
         </p>
       </div>
-      <p className="text-gray-700 mb-2 text-center">3.</p>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <input
           type="text"
